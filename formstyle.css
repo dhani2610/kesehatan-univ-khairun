@@ -1,0 +1,94 @@
+/* General Form Styling */
+/* form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} */
+
+/* Form Labels */
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Form Inputs */
+form input[type="text"],
+form input[type="date"],
+form input[type="file"],
+form select,
+form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Focus State */
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form input[type="file"]:focus,
+form select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Select Styling */
+form select {
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.516 7.548a1 1 0 0 1 1.464 0L10 10.569l3.02-3.02a1 1 0 0 1 1.464 1.414l-4 4a1 1 0 0 1-1.464 0l-4-4a1 1 0 0 1 0-1.414z"/></svg>') no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 30px;
+}
+
+/* Buttons */
+form button {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Secondary Button */
+form button.btn-keluar {
+    background-color: #dc3545;
+}
+
+form button.btn-keluar:hover {
+    background-color: #bd2130;
+}
+
+/* Error Message */
+form .error {
+    color: red;
+    font-size: 12px;
+}
+
+/* Success Message */
+form .success {
+    color: green;
+    font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    form {
+        padding: 15px;
+    }
+}

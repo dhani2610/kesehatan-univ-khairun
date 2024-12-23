@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(background.jpeg); 
+    background-color: #f4f4f9;
+    background-size: cover;
+    background-position: center;
+    color: #333;
+  }
+  
+  header {
+    background-color: #4c9baf;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  header .logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  header img {
+    max-width: 80px;
+  }
+  
+  header .header-text {
+    text-align: center;
+  }
+  
+  header h1, header p {
+    margin: 0;
+  }
+  
+  header .logout-button {
+    padding: 8px 10px;
+    background-color: #4c9baf;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  header .logout-button:hover {
+    background-color: #3b8b96;
+  }
+  
+  .container {
+    max-width: 100%;
+    margin: 5px auto;
+    background: white;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #4c9baf;
+    color: white;
+  }
+  
+  td input[type="checkbox"] {
+    width: 10px;
+    height: 10px;
+    margin: 0 auto;
+  }
+  
+  button {
+    padding: 4px 6px;
+    background-color: #4c9baf;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #3b8b96;
+  }
+  

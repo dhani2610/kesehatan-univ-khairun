@@ -1,0 +1,261 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url(background.jpeg); 
+  background-color: #f4f4f9;
+  background-size: cover;
+  background-position: center;
+  color: #333;
+}
+
+header {
+  background-color: #4c9baf;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+header .logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px; /* Space between logo and text */
+}
+
+header img {
+  max-width: 80px;
+}
+
+header .header-text {
+  text-align: center;
+}
+
+header h1, header p {
+  margin: 0;
+  font-size: 14px;
+}
+
+header .logout-button {
+  padding: 8px 10px;
+  background-color: #4c9baf;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 120px;
+  text-align: center;
+  margin-left: auto; /* Position to the right */
+}
+
+header .logout-button:hover {
+  background-color: #3b8b96;
+}
+
+.container {
+  max-width: 100%;
+  margin: 5px auto;
+  background: white;
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 5px;
+  text-align: center;
+}
+
+th {
+  background-color: #4c9baf;
+  color: white;
+}
+
+td input[type="checkbox"] {
+  width: 10px;
+  height: 10px;
+  margin: 0 auto;
+  display: block;
+}
+
+button {
+  padding: 4px 6px;
+  background-color: #4c9baf;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #3b8b96;
+}
+
+.form-section {
+  display: none;
+  margin-top: 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 5px;
+  }
+
+  header .logo-container {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  header img {
+    max-width: 60px;
+  }
+
+  header h1 {
+    font-size: 14px;
+  }
+
+  header p {
+    font-size: 14px;
+  }
+
+  header .logout-button {
+    margin-left: 0;
+    margin-top: 5px;
+    width: 100%;
+  }
+
+  table {
+    font-size: 12px;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  .container {
+    margin: 5px;
+    padding: 5px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .form-section {
+    display: block;
+  }
+
+  .form-section h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  input, select {
+    font-size: 14px;
+  }
+
+  table, th, td {
+    font-size: 12px;
+  }
+
+  td {
+    padding: 5px;
+  }
+
+  th {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 14px;
+  }
+
+  header p {
+    font-size: 12px;
+  }
+
+  header .logout-button {
+    padding: 5px;
+    font-size: 16px;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  table, th, td {
+    font-size: 12px;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  td {
+    padding: 5px;
+  }
+
+  th {
+    font-size: 12px;
+  }
+
+  input, select {
+    font-size: 14px;
+  }
+
+  /* Stack table cells for small screens */
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  th, td {
+    display: block;
+    text-align: left;
+  }
+
+  th {
+    background-color: #4c9baf;
+    color: white;
+  }
+
+  td {
+    border-bottom: 1px solid #ddd;
+  }
+}
