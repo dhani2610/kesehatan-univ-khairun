@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
       $row = $result->fetch_assoc();
-      var_dump(password_verify($password, $row['password']));
+      // var_dump(password_verify($password, $row['password']));
         if (password_verify($password, $row['password'])) {
             session_start();
             $_SESSION['username'] = $username;
