@@ -39,14 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['role'] = $role;
 
             echo "Login berhasil!";
-            if ($role === 'user') {
-                header('Location: dashbordmhs.php');
-            } elseif ($role === 'admin') {
-                header('Location: dashbordadmin.php'); 
-            } elseif ($role === 'dokter') {
-                header('Location: dashborddokter.php'); 
-            }
+            header('Location: index.php');
             exit();
+
+            // if ($role === 'user') {
+            //     header('Location: dashbordmhs.php');
+            // } elseif ($role === 'admin') {
+            //     header('Location: dashbordadmin.php'); 
+            // } elseif ($role === 'dokter') {
+            //     header('Location: dashborddokter.php'); 
+            // }
+            // exit();
         } else {
             echo "Password salah!".$password.'-'.$role;
         }
