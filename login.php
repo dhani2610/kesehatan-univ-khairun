@@ -6,6 +6,20 @@ if (!$conn) {
     die("Koneksi ke database gagal: " . $conn->connect_error);
 }
 
+if (isset($_SESSION['role'])) { 
+  if ($_SESSION['role'] === 'admin') {
+    header('Location: dashbordadmin.php');
+    exit();
+  } elseif ($_SESSION['role'] === 'user') {
+    header('Location: dashbordmhs.php');
+    exit();
+  } elseif ($_SESSION['role'] === 'dokter') {
+    header('Location: dashborddokter.php');
+    exit();
+  }
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['login-username'] ?? null);
     $password = trim($_POST['login-password'] ?? null);
@@ -60,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $sql->close();
 }
+
 ?>
 
 
