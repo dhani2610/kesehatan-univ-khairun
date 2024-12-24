@@ -51,13 +51,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
 
       $filePath = $uploadDir . basename($fileName);
+      $id_user = $_SESSION['id'];
 
       if (move_uploaded_file($fileTmp, $filePath)) {
-          $sql = "INSERT INTO mahasiswa (nama_mahasiswa, nim, fakultas, jurusan, bukti_pembayaran, tanggal_pemeriksaan) 
-                  VALUES ('$nama_mahasiswa', '$nim', '$fakultas', '$jurusan', '$filePath', '$tanggal_pemeriksaan')";
+          $sql = "INSERT INTO mahasiswa (id_user ,nama_mahasiswa, nim, fakultas, jurusan, bukti_pembayaran, tanggal_pemeriksaan) 
+                  VALUES ('$id_user','$nama_mahasiswa', '$nim', '$fakultas', '$jurusan', '$filePath', '$tanggal_pemeriksaan')";
 
           if ($conn->query($sql) === TRUE) {
-              echo "Data berhasil disimpan.";
+            $inserted_id = $conn->insert_id;
+
+            header('Location: detail.php?id='.$inserted_id);
+            exit();
+              // echo "Data berhasil disimpan.";
           } else {
               echo "Error: " . $sql . "<br>" . $conn->error;
           }
@@ -134,17 +139,10 @@ $conn->close();
     <button type="submit">Kirim Data</button>
     <button type="button" class="btn-keluar" onclick="window.location.href='logout.php'">Keluar</button>
   </form>
+
+  
 </div>
 
-<div class="output" id="jadwalOutput" style="display:none;">
-  <h3>Jadwal Pemeriksaan Kesehatan</h3>
-  <p><strong>Nama:</strong> <span id="outputNama"></span></p>
-  <p><strong>NPM:</strong> <span id="outputNim"></span></p>
-  <p><strong>Fakultas:</strong> <span id="outputFakultas"></span></p>
-  <p><strong>Jurusan:</strong> <span id="outputJurusan"></span></p>
-  <h4>Jadwal Pemeriksaan:</h4>
-  <ul id="jadwalList"></ul>
-</div>
 
 <script src="dashboard.js"></script>
 <script>

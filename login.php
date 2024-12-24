@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // var_dump(password_verify($password, $row['password']));
         if (password_verify($password, $row['password'])) {
             session_start();
+            $_SESSION['id'] = $row['id'];
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
 

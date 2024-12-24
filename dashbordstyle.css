@@ -46,6 +46,7 @@ body {
   button:hover {
     background-color: #3b8b96;
   }
+  
   .btn-keluar {
     background-color: #f44336;
   }
@@ -57,7 +58,7 @@ body {
     padding: 20px;
     background-color: #e9f7fb;
     border-radius: 6px;
-    display: none;
+    /* display: none; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   .output ul {
