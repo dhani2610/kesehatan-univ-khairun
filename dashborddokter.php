@@ -1,149 +1,136 @@
 <?php
-session_start(); 
+session_start();
 
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'dokter') {
-    header('Location: login.php');
-    exit();
+  header('Location: login.php');
+  exit();
 }
 
 include 'koneksi.php';
-$sql = "SELECT * FROM datamhs ORDER BY fakultas, nama, npm, jurusan";
+
+// Query untuk mengambil data mahasiswa, diurutkan berdasarkan fakultas dan tanggal pemeriksaan
+$sql = "SELECT id, fakultas, nama_mahasiswa, nim, jurusan, tanggal_pemeriksaan, status 
+        FROM mahasiswa 
+        ORDER BY fakultas, tanggal_pemeriksaan DESC";
+
 $result = $conn->query($sql);
 
+// Cek apakah query berhasil
+if (!$result) {
+  die("Query error: " . $conn->error);
+}
+
+// Mengelompokkan data berdasarkan fakultas
 $data = [];
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
+  while ($row = $result->fetch_assoc()) {
+    $data[$row['fakultas']][] = $row;
+  }
 }
-// echo json_encode($data);
+
 $conn->close();
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Admin</title>
-  <link rel="stylesheet" href="dokterstyle.css">
+  <title>Dashboard Dokter</title>
+  <!-- <link rel="stylesheet" href="dokterstyle.css"> -->
+  <link rel="stylesheet" href="adminstyle.css">
+
 </head>
+
 <body>
-<header>
-  <div class="logo-container">
-    <img src="images/logo.png" alt="Logo Universitas Khairun">
-  </div>
-  <div class="header-text">
-    <h1>Dashboard Dokter</h1>
-    <p>Kelola Data Mahasiswa</p>
-  </div>
-  <button class="btn-keluar" onclick="window.location.href='login.php'">Keluar</button>
-</header>
 
-<div class="container">
-  <h2>Data Mahasiswa</h2>
-  <button onclick="showFacultyData()">Lihat Data Mahasiswa per Fakultas</button>
 
-  <!-- Fakultas Data -->
-  <div id="fakultasData">
-    <div>
-      <h3>Fakultas Teknik</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>NPM</th>
-            <th>Jurusan</th>
-            <th>Sudah Pemeriksaan Kesehatan</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Ali</td>
-            <td>07352211001</td>
-            <td>Informatika</td>
-            <td>
-              <input type="checkbox" onclick="toggleHealthCheck(this)">
-            </td>
-          </tr>
-          <tr>
-            <td>Budi</td>
-            <td>08352211002</td>
-            <td>Elektro</td>
-            <td>
-              <input type="checkbox" onclick="toggleHealthCheck(this)">
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="images/logo.png" Logo Universitas Khairun">
+      <div>
+        <h1>Dashboard Dokter</h1>
+        <p>Kelola Data Mahasiswa</p>
+      </div>
     </div>
+    <button class="btn-keluar" onclick="window.location.href='logout.php'">Keluar</button>
+  </header>
 
-    <div>
-      <h3>Fakultas Ekonomi</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>NPM</th>
-            <th>Jurusan</th>
-            <th>Sudah Pemeriksaan Kesehatan</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Charlie</td>
-            <td>09352211003</td>
-            <td>Akuntansi</td>
-            <td>
-              <input type="checkbox" onclick="toggleHealthCheck(this)">
-            </td>
-          </tr>
-          <tr>
-            <td>Diana</td>
-            <td>10352211004</td>
-            <td>Manajemen</td>
-            <td>
-              <input type="checkbox" onclick="toggleHealthCheck(this)">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="container">
+    <h2>Data Mahasiswa</h2>
+    <div id="fakultasData">
+      <?php foreach ($data as $fakultas => $mahasiswa): ?>
+        <div>
+          <h3><?php echo htmlspecialchars($fakultas); ?></h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>NPM</th>
+                <th>Jurusan</th>
+                <th>Tanggal Pemeriksaan</th>
+                <th>Sudah Pemeriksaan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($mahasiswa as $mhs): ?>
+                <tr>
+                  <td><?php echo htmlspecialchars($mhs['nama_mahasiswa']); ?></td>
+                  <td><?php echo htmlspecialchars($mhs['nim']); ?></td>
+                  <td><?php echo htmlspecialchars($mhs['jurusan']); ?></td>
+                  <?php
+                  setlocale(LC_TIME, 'id_ID.utf8', 'id_ID', 'id');
 
-    <div>
-      <h3>Fakultas Kedokteran</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>NPM</th>
-            <th>Jurusan</th>
-            <th>Sudah Pemeriksaan Kesehatan</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Eva</td>
-            <td>11352211005</td>
-            <td>Kedokteran Umum</td>
-            <td>
-              <input type="checkbox" onclick="toggleHealthCheck(this)">
-            </td>
-          </tr>
-          <tr>
-            <td>Faisal</td>
-            <td>12352211006</td>
-            <td>Kedokteran Gigi</td>
-            <td>
-              <input type="checkbox" onclick="toggleHealthCheck(this)">
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  $tanggal = new DateTime($mhs['tanggal_pemeriksaan']);
+                  $hariTanggal = strftime('%A, %d %B %Y', $tanggal->getTimestamp());
+                  ?>
+                  <td><?php echo htmlspecialchars($hariTanggal); ?></td>
+                  <td>
+                    <center>
+                      <input type="checkbox"
+                        onclick="toggleHealthCheck(this, <?php echo $mhs['id']; ?>)"
+                        <?php echo $mhs['status'] == 1 ? 'checked' : ''; ?>>
+                    </center>
+                  </td>
+
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php endforeach; ?>
     </div>
   </div>
-</div>
-</script>
+
+  <script>
+    function toggleHealthCheck(checkbox, id) {
+      const status = checkbox.checked ? 1 : 0;
+
+      fetch('pemeriksaan.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `id=${id}&status=${status}`
+        })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          if (status === 1) {
+            alert('Mahasiswa telah menyelesaikan pemeriksaan kesehatan.');
+          } else {
+            alert('Mahasiswa belum menyelesaikan pemeriksaan kesehatan.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Terjadi kesalahan, silakan coba lagi.');
+        });
+    }
+  </script>
 
 </body>
+
 </html>

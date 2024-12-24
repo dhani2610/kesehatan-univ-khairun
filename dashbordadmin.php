@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-$sql = "SELECT * FROM mahasiswa ORDER BY tanggal_pemeriksaan ASC";
+$sql = "SELECT * FROM mahasiswa ORDER BY tanggal_pemeriksaan DESC";
 $result = $conn->query($sql);
 
 
