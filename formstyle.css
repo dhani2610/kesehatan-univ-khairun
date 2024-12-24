@@ -21,6 +21,7 @@ form label {
 form input[type="text"],
 form input[type="date"],
 form input[type="file"],
+form input[type="time"],
 form select,
 form button {
     width: 100%;
@@ -36,6 +37,7 @@ form button {
 form input[type="text"]:focus,
 form input[type="date"]:focus,
 form input[type="file"]:focus,
+form input[type="time"]:focus,
 form select:focus {
     outline: none;
     border-color: #007bff;

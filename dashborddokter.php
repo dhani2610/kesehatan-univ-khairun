@@ -16,7 +16,7 @@ if ($result->num_rows > 0) {
         $data[] = $row;
     }
 }
-echo json_encode($data);
+// echo json_encode($data);
 $conn->close();
 ?>
 

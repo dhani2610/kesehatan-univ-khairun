@@ -78,4 +78,80 @@ document.getElementById('fakultas').addEventListener('change', function() {
       window.location.href = 'login.html';
     }
   }
+
+
+
+  const jurusanOptions = {
+    "Fakultas Teknik": [
+      "Mesin",
+      "Elektro",
+      "Arsitektur",
+      "Sipil",
+      "Industri",
+      "Informatika",
+      "Pertambangan"
+    ],
+    "Fakultas Ekonomi": [
+      "Ekonomi Pembangunan",
+      "Manajemen",
+      "Akuntansi"
+    ],
+    "Fakultas Hukum": [
+      "Ilmu Hukum"
+    ],
+    "FKIP": [
+      "PGPAUD",
+      "Matematika",
+      "Bahasa Inggris",
+      "PGSD",
+      "Geografi",
+      "Bahasa Indonesia",
+      "PPKN",
+      "Biologi",
+      "Kimia",
+      "Fisika"
+    ],
+    "Fakultas Kedokteran": [
+      "Pendidikan Dokter",
+      "Farmasi",
+      "Psikologi"
+    ],
+    "FIB": [
+      "Sastra Inggris",
+      "Sastra Indonesia",
+      "Ilmu Sejarah"
+    ],
+    "Pertanian": [
+      "Kehutanan",
+      "Agribisnis",
+      "Agroteknologi",
+      "Peternakan",
+      "Teknologi Pertanian",
+      "Ilmu Tanah"
+    ],
+    "FPIK": [
+      "Ilmu Kelautan",
+      "Manajemen Sumber Daya Perairan",
+      "Budidaya Perairan",
+      "Pemanfaatan Sumber Daya Perairan"
+    ]
+  };
+  
+  const fakultasSelect = document.getElementById('fakultas');
+  const jurusanSelect = document.getElementById('jurusan');
+  
+  fakultasSelect.addEventListener('change', function () {
+    const selectedFakultas = fakultasSelect.value;
+    jurusanSelect.innerHTML = '<option value="">Pilih Jurusan</option>'; // Reset jurusan
+  
+    if (selectedFakultas && jurusanOptions[selectedFakultas]) {
+      jurusanOptions[selectedFakultas].forEach(jurusan => {
+        const option = document.createElement('option');
+        option.value = jurusan;
+        option.textContent = jurusan;
+        jurusanSelect.appendChild(option);
+      });
+    }
+  });
+  
   

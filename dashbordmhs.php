@@ -92,20 +92,18 @@ $conn->close();
       <option value="Fakultas Teknik">Fakultas Teknik</option>
       <option value="Fakultas Ekonomi">Fakultas Ekonomi</option>
       <option value="Fakultas Hukum">Fakultas Hukum</option>
+      <option value="FKIP">FKIP</option>
       <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
+      <option value="FIB">FIB</option>
+      <option value="Pertanian">Pertanian</option>
+      <option value="FPIK">FPIK</option>
     </select>
-  
+
     <label for="jurusan">Jurusan:</label>
     <select id="jurusan" name="jurusan" required>
       <option value="">Pilih Jurusan</option>
-      <option value="Informatika">Informatika</option>
-      <option value="Teknik Sipil">Teknik Sipil</option>
-      <option value="Manajemen">Manajemen</option>
-      <option value="Hukum Pidana">Hukum Pidana</option>
     </select>
-  
-    <label for="buktiPembayaran">Tanggal Pemeriksaan:</label>
-    <input type="date" id="tanggal_pemeriksaan" name="tanggal_pemeriksaan">
+
 
     <label for="buktiPembayaran">Unggah Bukti Pembayaran:</label>
     <input type="file" id="buktiPembayaran" name="buktiPembayaran" accept=".jpg,.jpeg,.png,.pdf" required>

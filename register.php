@@ -90,7 +90,7 @@ $conn->close();
       <select id="role" name="role" required>
         <option value="user">User</option>
         <!-- <option value="admin">Admin</option> -->
-        <option value="doctor">Dokter</option>
+        <option value="dokter">Dokter</option>
       </select>
 
       <button type="submit">Daftar</button>
