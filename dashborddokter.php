@@ -42,6 +42,31 @@ $conn->close();
   <!-- <link rel="stylesheet" href="dokterstyle.css"> -->
   <link rel="stylesheet" href="adminstyle.css">
 
+  <style>
+     /* Menambahkan kemampuan scroll pada tabel */
+     .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 20px;
+      /* Opsional: memberikan jarak di bawah tabel */
+    }
+
+    /* Menambahkan lebar tabel agar tetap responsif */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* Menambahkan beberapa styling untuk tabel */
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+  </style>
+
 </head>
 
 <body>
@@ -62,7 +87,7 @@ $conn->close();
     <h2>Data Mahasiswa</h2>
     <div id="fakultasData">
       <?php foreach ($data as $fakultas => $mahasiswa): ?>
-        <div>
+        <div class="table-responsive">
           <h3><?php echo htmlspecialchars($fakultas); ?></h3>
           <table>
             <thead>
