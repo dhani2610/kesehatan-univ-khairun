@@ -106,50 +106,50 @@ $result = $conn->query($sql);
 // JADWAL 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['action'])) {
-      $action = $_POST['action'];
+    $action = $_POST['action'];
 
-      // Tambah Jadwal
-      if ($action === 'add_jadwal') {
-          $fakultas = $_POST['fakultas'];
-          $tanggal = $_POST['tanggal'];
-          $waktu_dari = $_POST['waktu_dari'];
-          $waktu_sampai = $_POST['waktu_sampai'];
+    // Tambah Jadwal
+    if ($action === 'add_jadwal') {
+      $fakultas = $_POST['fakultas'];
+      $tanggal = $_POST['tanggal'];
+      $waktu_dari = $_POST['waktu_dari'];
+      $waktu_sampai = $_POST['waktu_sampai'];
 
-          $sql = "INSERT INTO jadwals (fakultas, tanggal, waktu_dari,waktu_sampai) VALUES ('$fakultas', '$tanggal', '$waktu_dari', '$waktu_sampai')";
-          if ($conn->query($sql) === TRUE) {
-              echo "Jadwal berhasil ditambahkan.";
-          } else {
-              echo "Error: " . $conn->error;
-          }
+      $sql = "INSERT INTO jadwals (fakultas, tanggal, waktu_dari,waktu_sampai) VALUES ('$fakultas', '$tanggal', '$waktu_dari', '$waktu_sampai')";
+      if ($conn->query($sql) === TRUE) {
+        echo "Jadwal berhasil ditambahkan.";
+      } else {
+        echo "Error: " . $conn->error;
       }
+    }
 
-      // Edit Jadwal
-      if ($action === 'edit_jadwal') {
-          $id = $_POST['id'];
-          $fakultas = $_POST['fakultas'];
-          $tanggal = $_POST['tanggal'];
-          $waktu_dari = $_POST['waktu_dari'];
-          $waktu_sampai = $_POST['waktu_sampai'];
+    // Edit Jadwal
+    if ($action === 'edit_jadwal') {
+      $id = $_POST['id'];
+      $fakultas = $_POST['fakultas'];
+      $tanggal = $_POST['tanggal'];
+      $waktu_dari = $_POST['waktu_dari'];
+      $waktu_sampai = $_POST['waktu_sampai'];
 
-          $sql = "UPDATE jadwals SET fakultas='$fakultas', tanggal='$tanggal', waktu_dari='$waktu_dari', waktu_sampai='$waktu_sampai'  WHERE id='$id'";
-          if ($conn->query($sql) === TRUE) {
-              echo "Jadwal berhasil diperbarui.";
-          } else {
-              echo "Error: " . $conn->error;
-          }
+      $sql = "UPDATE jadwals SET fakultas='$fakultas', tanggal='$tanggal', waktu_dari='$waktu_dari', waktu_sampai='$waktu_sampai'  WHERE id='$id'";
+      if ($conn->query($sql) === TRUE) {
+        echo "Jadwal berhasil diperbarui.";
+      } else {
+        echo "Error: " . $conn->error;
       }
+    }
 
-      // Hapus Jadwal
-      if ($action === 'delete_jadwal') {
-          $id = $_POST['id'];
+    // Hapus Jadwal
+    if ($action === 'delete_jadwal') {
+      $id = $_POST['id'];
 
-          $sql = "DELETE FROM jadwals WHERE id='$id'";
-          if ($conn->query($sql) === TRUE) {
-              echo "Jadwal berhasil dihapus.";
-          } else {
-              echo "Error: " . $conn->error;
-          }
+      $sql = "DELETE FROM jadwals WHERE id='$id'";
+      if ($conn->query($sql) === TRUE) {
+        echo "Jadwal berhasil dihapus.";
+      } else {
+        echo "Error: " . $conn->error;
       }
+    }
   }
 }
 
@@ -199,6 +199,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       display: flex;
       gap: 10px;
     }
+
+    /* Menambahkan kemampuan scroll pada tabel */
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 20px;
+      /* Opsional: memberikan jarak di bawah tabel */
+    }
+
+    /* Menambahkan lebar tabel agar tetap responsif */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* Menambahkan beberapa styling untuk tabel */
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+
   </style>
 </head>
 
@@ -217,56 +241,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="container">
     <h2>Data Mahasiswa</h2>
     <button onclick="showFormModal()">Tambah/Modifikasi Data</button>
-    <table>
-      <thead>
-        <tr>
-          <th>Nama</th>
-          <th>NPM</th>
-          <th>Fakultas</th>
-          <th>Jurusan</th>
-          <th>Jadwal Pemeriksaan</th>
-          <th>Bukti Pembayaran</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody id="dataMahasiswa">
-        <?php if ($result->num_rows > 0): ?>
-          <?php while ($row = $result->fetch_assoc()): ?>
-            <tr>
-              <td><?php echo htmlspecialchars($row['nama_mahasiswa']); ?></td>
-              <td><?php echo htmlspecialchars($row['nim']); ?></td>
-              <td><?php echo htmlspecialchars($row['fakultas']); ?></td>
-              <td><?php echo htmlspecialchars($row['jurusan']); ?></td>
-              <td><?php echo htmlspecialchars($row['tanggal_pemeriksaan']); ?></td>
-              <td>
-                <a target="_blank" href="<?php echo $row['bukti_pembayaran']; ?>">Download</a>
-              </td>
-              <td>
-                <button onclick="editDataAdmin(
-                              <?php echo $row['id']; ?>, 
-                              '<?php echo htmlspecialchars($row['nama_mahasiswa']); ?>', 
-                              '<?php echo htmlspecialchars($row['nim']); ?>', 
-                              '<?php echo htmlspecialchars($row['fakultas']); ?>', 
-                              '<?php echo htmlspecialchars($row['jurusan']); ?>', 
-                              '<?php echo htmlspecialchars($row['tanggal_pemeriksaan']); ?>'
-                            )">Edit</button>
-                <button onclick="confirmDelete(<?php echo $row['id']; ?>)" style="background: red;">Delete</button>
-              </td>
-            </tr>
-          <?php endwhile; ?>
-        <?php else: ?>
+    <div class="table-responsive">
+      <table>
+        <thead>
           <tr>
-            <td colspan="6">Tidak ada data mahasiswa.</td>
+            <th>Nama</th>
+            <th>NPM</th>
+            <th>Fakultas</th>
+            <th>Jurusan</th>
+            <th>Jadwal Pemeriksaan</th>
+            <th>Bukti Pembayaran</th>
+            <th>Aksi</th>
           </tr>
-        <?php endif; ?>
-      </tbody>
-    </table>
+        </thead>
+        <tbody id="dataMahasiswa">
+          <?php if ($result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
+              <tr>
+                <td><?php echo htmlspecialchars($row['nama_mahasiswa']); ?></td>
+                <td><?php echo htmlspecialchars($row['nim']); ?></td>
+                <td><?php echo htmlspecialchars($row['fakultas']); ?></td>
+                <td><?php echo htmlspecialchars($row['jurusan']); ?></td>
+                <td><?php echo htmlspecialchars($row['tanggal_pemeriksaan']); ?></td>
+                <td>
+                  <a target="_blank" href="<?php echo $row['bukti_pembayaran']; ?>">Download</a>
+                </td>
+                <td>
+                  <button onclick="editDataAdmin(
+                                <?php echo $row['id']; ?>, 
+                                '<?php echo htmlspecialchars($row['nama_mahasiswa']); ?>', 
+                                '<?php echo htmlspecialchars($row['nim']); ?>', 
+                                '<?php echo htmlspecialchars($row['fakultas']); ?>', 
+                                '<?php echo htmlspecialchars($row['jurusan']); ?>', 
+                                '<?php echo htmlspecialchars($row['tanggal_pemeriksaan']); ?>'
+                              )">Edit</button>
+                  <button onclick="confirmDelete(<?php echo $row['id']; ?>)" style="background: red;">Delete</button>
+                </td>
+              </tr>
+            <?php endwhile; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="6">Tidak ada data mahasiswa.</td>
+            </tr>
+          <?php endif; ?>
+        </tbody>
+      </table>
+    </div>
 
   </div>
 
   <div class="container">
     <h2>Mengatur Jadwal Mahasiswa</h2>
     <button onclick="showFormModalJadwal()">Tambah Jadwal</button>
+    <div class="table-responsive">
     <table>
       <thead>
         <tr>
@@ -278,21 +305,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </thead>
       <tbody id="dataMahasiswa">
         <?php
-          $sqlJadwal = "SELECT * FROM jadwals ORDER BY id DESC";
-          $resultJadwal = $conn->query($sqlJadwal);
+        $sqlJadwal = "SELECT * FROM jadwals ORDER BY id DESC";
+        $resultJadwal = $conn->query($sqlJadwal);
 
-          // Periksa apakah query berhasil
-          if (!$resultJadwal) {
-              die("Query Error: " . $conn->error);
-          }
+        // Periksa apakah query berhasil
+        if (!$resultJadwal) {
+          die("Query Error: " . $conn->error);
+        }
         ?>
         <?php if ($resultJadwal->num_rows > 0): ?>
-          <?php  while ($row = $resultJadwal->fetch_assoc()): ?>
+          <?php while ($row = $resultJadwal->fetch_assoc()): ?>
             <tr>
               <td><?php echo htmlspecialchars($row['fakultas']); ?></td>
               <?php
               // Pastikan locale Bahasa Indonesia sudah diatur
-              setlocale(LC_TIME, 'id_ID.utf8', 'id_ID', 'id'); 
+              setlocale(LC_TIME, 'id_ID.utf8', 'id_ID', 'id');
 
               // Format tanggal dari database
               $tanggal = new DateTime($row['tanggal']);
@@ -300,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               ?>
               <td><?php echo htmlspecialchars($hariTanggal); ?></td>
               <!-- <td><?php echo htmlspecialchars($row['tanggal']); ?></td> -->
-              <td><?php echo htmlspecialchars($row['waktu_dari']) .' - '.htmlspecialchars($row['waktu_sampai']); ?></td>
+              <td><?php echo htmlspecialchars($row['waktu_dari']) . ' - ' . htmlspecialchars($row['waktu_sampai']); ?></td>
               <td>
                 <button onclick="editDataAdminJadwal(
                               <?php echo $row['id']; ?>, 
@@ -320,6 +347,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
       </tbody>
     </table>
+    </table>
+
 
   </div>
 
@@ -436,7 +465,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
   <!-- jadwal -->
-    <!-- Modal Create Data Mahasiswa -->
+  <!-- Modal Create Data Mahasiswa -->
   <div id="modalCreateJadwal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModalJadwal()">&times;</span>
@@ -474,7 +503,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </div>
 
-  
+
   <div id="modalEditJadwal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeEditModalJadwal()">&times;</span>
@@ -513,8 +542,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </div>
 
-   <!-- Modal Konfirmasi Delete -->
-   <div id="modalDeleteJadwal" class="modal">
+  <!-- Modal Konfirmasi Delete -->
+  <div id="modalDeleteJadwal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeDeleteModalJadwal()">&times;</span>
       <h3>Konfirmasi Hapus Data</h3>
@@ -546,6 +575,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function closeModal() {
       document.getElementById('modalCreate').style.display = 'none';
     }
+
     function closeModalJadwal() {
       document.getElementById('modalCreateJadwal').style.display = 'none';
     }
@@ -564,7 +594,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Fungsi untuk Menampilkan Modal Edit
     function editDataAdminJadwal(id, fakultas, tanggal, waktu_dari, waktu_sampai) {
       console.log(id);
-      
+
       document.getElementById('edit_id_jadwal').value = id;
       document.getElementById('edit_fakultas_jadwal').value = fakultas;
       document.getElementById('edit_tanggal_jadwal').value = tanggal;
@@ -578,6 +608,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function closeEditModal() {
       document.getElementById('modalEdit').style.display = 'none';
     }
+
     function closeEditModalJadwal() {
       document.getElementById('modalEditJadwal').style.display = 'none';
     }
@@ -590,7 +621,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     function confirmDeleteJadwal(id) {
       console.log(id);
-      
+
       document.getElementById('delete_id_jadwal').value = id;
       document.getElementById('modalDeleteJadwal').style.display = 'block';
     }
@@ -599,6 +630,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function closeDeleteModal() {
       document.getElementById('modalDelete').style.display = 'none';
     }
+
     function closeDeleteModalJadwal() {
       document.getElementById('modalDeleteJadwal').style.display = 'none';
     }
